@@ -1,7 +1,7 @@
 {
   "name": "my-app",
   "version": "0.1.0",
-  "homepage": "https://RomaLetodiani.github.io/{}",
+  "homepage": "https://RomaLetodiani.github.io/article-preview-component",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",

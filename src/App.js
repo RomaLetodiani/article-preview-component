@@ -1,27 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import drawers from './images/drawers.jpg';
 import avatar from './images/avatar-michelle.jpg';
-import {
-  FaShare,
-  FaFacebookSquare,
-  FaPinterest,
-  FaTwitter,
-} from 'react-icons/fa';
+import useMediaQuery from './Hooks/useMediaQuery';
+import ShareButton from './Components/ShareButton';
+import MobilePopUp from './Components/MobilePopUp';
 
 const App = () => {
+  const [showPopUp, setShowPopUp] = useState(false);
+  const isAboveMediumScreens = useMediaQuery('(min-width:850px)');
   return (
     <div className="w-full min-h-screen min-w-[280px] p-5 flex justify-center items-center bg-[#ecf2f8]">
-      <div className="max-w-2xl flex flex-col sm:flex-row">
-        <div className="sm:max-w-[280px] sm:rounded-se-none sm:rounded-s-2xl rounded-se-2xl rounded-ss-2xl overflow-hidden">
+      <div className="max-w-2xl flex flex-col min-[850px]:flex-row">
+        <div className="min-[850px]:max-w-[280px] min-[850px]:rounded-se-none min-[850px]:rounded-s-2xl rounded-se-2xl rounded-ss-2xl overflow-hidden">
           <img
-            className="w-full h-full max-h-44 sm:max-h-full object-cover object-left"
+            className="w-full h-full max-h-44 min-[850px]:max-h-full object-cover object-left"
             src={drawers}
             alt="drawers"
           />
         </div>
-        <div className="bg-[#fff] px-10 py-6 sm:rounded-es-none sm:rounded-e-2xl rounded-es-2xl rounded-ee-2xl">
+        <div className="bg-[#fff] relative px-4 min-[400px]:px-10 py-6 min-[850px]:rounded-es-none min-[850px]:rounded-e-2xl rounded-es-2xl rounded-ee-2xl">
           <div>
-            <h3 className="text-base sm:text-xl font-bold">
+            <h3 className="text-base min-[850px]:text-xl font-bold">
               Shift the overall look and feel by adding these wonderful touches
               to furniture in your home
             </h3>
@@ -43,13 +42,19 @@ const App = () => {
                 <p className="text-[13px] text-[#9eafc2]">28 Jun 2020</p>
               </div>
             </div>
-            <button className="rounded-full text-[13px] p-2 bg-[#ecf2f8]">
-              <FaShare />
-            </button>
-            <div className="absolute top-0 -right-12 z-10">
-              <FaFacebookSquare />
-            </div>
+            <ShareButton
+              setShowPopUp={setShowPopUp}
+              isAboveMediumScreens={isAboveMediumScreens}
+              showPopUp={showPopUp}
+            />
           </div>
+          {!isAboveMediumScreens && showPopUp && (
+            <MobilePopUp
+              setShowPopUp={setShowPopUp}
+              isAboveMediumScreens={isAboveMediumScreens}
+              showPopUp={showPopUp}
+            />
+          )}
         </div>
       </div>
     </div>
